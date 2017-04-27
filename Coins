@@ -1,0 +1,40 @@
+"""
+possible coins
+"""
+
+
+def main():
+  cents = int(raw_input("how many cents: "))
+  q = 0
+  d = 0
+  n = 0
+  p = 0
+  combos = []
+  lock = 25
+  recurse(combos, q, d, n, p, cents, lock)
+  i = 0
+  print "you could have %d cents with..." % cents
+  while i < len(combos):
+    print "%d quarters, %d dimes, %d nickels, %d pennies" % (combos[i][0], combos[i][1], combos[i][2], combos[i][3])
+    i+=1
+
+
+
+
+def recurse (combos, q, d, n, p, cents, lock):
+  if cents < 5:
+    combos.append([q,d,n,p+cents])
+  else:
+    if cents >= 25:
+      if lock >=25:
+        recurse(combos, q+1, d, n, p, cents-25, 25)
+    if cents >= 10:
+      if lock >=10:
+        recurse(combos, q, d+1, n, p, cents-10, 10)
+    if cents >= 5:
+      if lock >=5:
+        recurse(combos, q, d, n+1, p, cents-5, 5)
+    if cents >= 1:
+      recurse(combos, q, d, n, p+1, cents-1, 1)
+
+main()
